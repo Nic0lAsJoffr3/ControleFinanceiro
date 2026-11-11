@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#081221">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Controle Financeiro</title>
+  <link rel="icon" href="icon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <section id="login">
+    <form id="loginForm" class="glass">
+      <div>
+        <h1>Controle Financeiro</h1>
+        <p>Entre com seu nome de usuário e senha.</p>
+      </div>
+
+      <label for="username">
+        Nome de usuário
+        <input id="username" type="text" autocomplete="username" required>
+      </label>
+
+      <label for="password">
+        Senha
+        <input id="password" type="password" autocomplete="current-password" required>
+      </label>
+
+      <button id="loginButton" class="primary" type="submit">Entrar</button>
+      <small id="loginMessage" role="status"></small>
+    </form>
+  </section>
+
+  <div id="app" hidden>
+    <header>
+      <span id="account">Olá</span>
+      <button id="logoutButton">Sair</button>
+    </header>
+
+    <main>
+      <nav id="navigation"></nav>
+
+      <section id="dashboard">
+        <div class="toolbar">
+          <div>
+            <h1>Visão geral</h1>
+            <p>Receitas, compromissos e projeção futura.</p>
+          </div>
+          <span class="spacer"></span>
+          <label>
+            Mês de referência
+            <input id="referenceMonth" type="month">
+          </label>
+          <div class="options" id="dashboardMode"></div>
+        </div>
+
+        <div class="cards" id="dashboardCards"></div>
+
+        <div class="glass">
+          <h2>Receitas e compromissos</h2>
+          <p>Inclui 3 meses anteriores e 6 meses futuros.</p>
+          <div class="chart big"><canvas id="cashChart"></canvas></div>
+        </div>
+
+        <div class="columns">
+          <div class="glass">
+            <h2>Distribuição dos compromissos</h2>
+            <div class="chart"><canvas id="categoryChart"></canvas></div>
+          </div>
+          <div class="glass">
+            <h2>Reservas e investimentos</h2>
+            <div class="chart"><canvas id="reserveChart"></canvas></div>
+          </div>
+          <div class="glass">
+            <h2>Valores por pessoa</h2>
+            <div class="chart"><canvas id="peopleChart"></canvas></div>
+          </div>
+          <div class="glass">
+            <h2>Detalhamento mensal</h2>
+            <div class="table-wrap" id="monthDetails"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="records" hidden>
+        <div class="glass">
+          <h1 id="recordTitle"></h1>
+          <p id="recordDescription"></p>
+          <form id="recordForm"></form>
+        </div>
+        <div class="glass" style="margin-top:14px">
+          <h2>Registros salvos</h2>
+          <div class="table-wrap" id="recordTable"></div>
+        </div>
+      </section>
+
+      <section id="advanced" hidden>
+        <div class="glass">
+          <h1>Gráficos avançados</h1>
+          <div class="fields">
+            <label>Início <input id="chartStart" type="month"></label>
+            <label>Fim <input id="chartEnd" type="month"></label>
+          </div>
+          <fieldset>
+            <legend>Séries exibidas</legend>
+            <div class="options" id="seriesOptions"></div>
+          </fieldset>
+          <fieldset>
+            <legend>Agrupamento</legend>
+            <div class="options" id="groupOptions"></div>
+          </fieldset>
+          <fieldset>
+            <legend>Apresentação</legend>
+            <div class="options" id="typeOptions"></div>
+          </fieldset>
+          <button id="applyCharts" class="primary">Aplicar</button>
+          <button id="downloadChart">Baixar PNG</button>
+          <div class="cards" id="advancedCards" style="margin-top:14px"></div>
+          <div class="chart big"><canvas id="advancedChart"></canvas></div>
+          <div class="table-wrap" id="advancedTable"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Modal de edição -->
+  <div id="editModal" class="modal" hidden>
+    <div class="modal-backdrop"></div>
+    <div class="modal-content glass">
+      <div class="modal-header">
+        <h2 id="modalTitle">Editar registro</h2>
+        <button id="modalClose" class="danger">✕</button>
+      </div>
+      <form id="modalForm"></form>
+    </div>
+  </div>
+
+  <div id="notice" role="status" hidden></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
